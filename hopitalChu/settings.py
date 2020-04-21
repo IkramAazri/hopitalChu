@@ -115,7 +115,6 @@ USE_TZ = True
 STATIC_URL = '/assets/'
 STATICFILES_DIRS = (
     "C:/Users/ikram/hopitalChu/hopitalChu/assets",
-
 )
 
 
