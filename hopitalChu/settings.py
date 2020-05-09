@@ -24,7 +24,7 @@ SECRET_KEY = 'q&$37iq=me@*4%lz$ps3!uxw@$ta$pyfm49n^oaw*yuxzha47$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
@@ -36,6 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'medicalStaff',
+    'crispy_forms',
+    'django_filters',
+    'bootstrap4',
+
 ]
 
 MIDDLEWARE = [
@@ -73,8 +78,12 @@ WSGI_APPLICATION = 'hopitalChu.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'hopital',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
 
@@ -113,10 +122,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/assets/'
-STATICFILES_DIRS = (
-    "C:/Users/ikram/hopitalChu/hopitalChu/assets",
-)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'hopitalChu/assets'),)
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'hopitalChu/assets/images')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

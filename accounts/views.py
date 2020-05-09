@@ -4,6 +4,11 @@ from django.shortcuts import render, redirect
 from .forms import CreateUserForm
 
 
+
+def index(request):
+    context = {'segment': 'index'}
+    return render(request, "home.html", context)
+
 def registerPage(request):
     form = CreateUserForm()
     if request.method == 'POST':
