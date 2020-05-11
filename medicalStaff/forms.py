@@ -1,13 +1,14 @@
 from django import forms
 
-from medicalStaff.models import Patient, Medecin, Chirurgien, SecuriteSocial, DossierMedical, Infirmier, Anesthesiste
+from medicalStaff.models import Patient, Medecin, Chirurgien, SecuriteSocial, DossierMedical, Infirmier, Anesthesiste, \
+    Plan
 
 
 class PatientForm(forms.ModelForm):
     class Meta:
         model = Patient
         fields = ['dossier', 'prenom', 'nom', 'sexe', 'adresse', 'profession', 'telephone', 'securiteSocial', 'ville',
-                  'medecin', 'chirurgien', 'dateNaissance','image']
+                  'medecin', 'chirurgien', 'dateNaissance', 'image']
 
     nom = forms.CharField(widget=forms.TextInput(
         attrs={
@@ -193,25 +194,25 @@ class MedecinForm(forms.ModelForm):
 
 
 class ChirurgienForm(forms.ModelForm):
-        class Meta:
-            model = Chirurgien
-            fields = ['nom', 'prenom']
+    class Meta:
+        model = Chirurgien
+        fields = ['nom', 'prenom']
 
-        nom = forms.CharField(widget=forms.TextInput(
-            attrs={
-                'class': 'form-control input-lg',
-                'placeholder': 'Nom',
+    nom = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': 'form-control input-lg',
+            'placeholder': 'Nom',
 
-            }
-        ))
+        }
+    ))
 
-        prenom = forms.CharField(widget=forms.TextInput(
-            attrs={
-                'class': 'form-control input-lg',
-                'placeholder': 'Prénom',
+    prenom = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': 'form-control input-lg',
+            'placeholder': 'Prénom',
 
-            }
-        ))
+        }
+    ))
 
 
 class AnesthesisteForm(forms.ModelForm):
@@ -234,3 +235,13 @@ class AnesthesisteForm(forms.ModelForm):
 
         }
     ))
+
+
+class PlanForm(forms.ModelForm):
+    class Meta:
+        model = Plan
+        fields = '__all__'
+
+
+
+

@@ -3,8 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from medicalStaff.filters import PatientFilter
-from medicalStaff.forms import PatientForm, DossierMedicalForm, InfirmierForm, MedecinForm, ChirurgienForm, \
-    AnesthesisteForm
+from medicalStaff.forms import PatientForm, DossierMedicalForm, InfirmierForm, MedecinForm, ChirurgienForm,AnesthesisteForm, PlanForm
 from medicalStaff.models import Patient, Infirmier, Chirurgien, Anesthesiste
 from medicalStaff.models import DossierMedical
 from medicalStaff.models import Medecin
@@ -32,10 +31,10 @@ def list_chirurgien(request):
     chirurgiens = Chirurgien.objects.all()
     return render(request, 'infos-perso/chirurgiens.html', {'chirurgiens': chirurgiens})
 
+
 def list_anesthesiste(request):
     anesthesistes = Anesthesiste.objects.all()
     return render(request, 'infos-perso/anesthesistes.html', {'anesthesistes': anesthesistes})
-
 
 
 # def list_dossiers(request):
@@ -79,11 +78,7 @@ def create_medecin(request):
         messages.warning(request, 'Medecin ajouté!')
         messages.warning(request, '')
 
-
-
-
     return render(request, 'infos-perso/medecin-form.html', {'form': form})
-
 
 
 def create_anesthesiste(request):
@@ -94,6 +89,7 @@ def create_anesthesiste(request):
         messages.success(request, 'Anesthesiste ajouté!')
 
     return render(request, 'infos-perso/anesthesiste-form.html', {'form': form})
+
 
 def create_chirurgien(request):
     form = ChirurgienForm(request.POST or None)
@@ -107,12 +103,21 @@ def create_chirurgien(request):
 
 
 
+def create_consultation(request):
+    form = PlanForm(request.POST or None)
+    if form.is_valid():
+       form.save()
+       form.save()
+    return render(request, 'infos-perso/consultation-form.html', {'form':form})
+
+
+
 def create_patient(request):
     # dossiers = DossierMedical.objects.all()
     # medecins = Medecin.objects.all()
     # context = {'dossiers': dossiers, 'medecins': medecins}
     # print("dos")
-    form = PatientForm(request.POST,request.FILES)
+    form = PatientForm(request.POST, request.FILES)
     form1 = DossierMedicalForm(request.POST or None)
     context = {'form': form, 'form1': form1}
     if form1.is_valid():
@@ -164,10 +169,10 @@ def update_patient(request, id):
     if form1.is_valid():
         form1.save()
     if request.method == 'POST':
-     form = PatientForm(request.POST,request.FILES, instance=patient)
-     if form.is_valid():
-         form.save()
-         return redirect('list_patients')
+        form = PatientForm(request.POST, request.FILES, instance=patient)
+        if form.is_valid():
+            form.save()
+            return redirect('list_patients')
     return render(request, "infos-perso/patient-form.html", context)
 
 
@@ -177,7 +182,7 @@ def update_infirmier(request, id):
     if form.is_valid():
         form.save()
         return redirect('list_infirmiers')
-    return render(request, "infos-perso/infirmier-form.html", {'form':form,'infirmier': infirmier})
+    return render(request, "infos-perso/infirmier-form.html", {'form': form, 'infirmier': infirmier})
 
 
 def update_anesthesiste(request, id):
@@ -186,7 +191,7 @@ def update_anesthesiste(request, id):
     if form.is_valid():
         form.save()
         return redirect('list_anesthesiste')
-    return render(request, "infos-perso/anesthesiste-form.html", {'form':form,'anesthesiste': anesthesiste})
+    return render(request, "infos-perso/anesthesiste-form.html", {'form': form, 'anesthesiste': anesthesiste})
 
 
 def update_chirurgien(request, id):
@@ -195,10 +200,7 @@ def update_chirurgien(request, id):
     if form.is_valid():
         form.save()
         return redirect('list_chirurgien')
-    return render(request, "infos-perso/chirurgien-form.html", {'form':form,'chirurgien': chirurgien})
-
-
-
+    return render(request, "infos-perso/chirurgien-form.html", {'form': form, 'chirurgien': chirurgien})
 
 
 def update_medecin(request, id):
@@ -207,7 +209,8 @@ def update_medecin(request, id):
     if form.is_valid():
         form.save()
         return redirect('list_medecin')
-    return render(request, "infos-perso/medecin-form.html", {'form':form,'medecin': medecin})
+    return render(request, "infos-perso/medecin-form.html", {'form': form, 'medecin': medecin})
+
 
 def delete_medecin(request, id):
     medecin = Medecin.objects.get(id=id)
@@ -216,6 +219,7 @@ def delete_medecin(request, id):
         medecin.delete()
         return redirect('list_medecin')
     return render(request, 'confirm-delete.html', {'medecin': medecin})
+
 
 def delete_patient(request, id):
     patient = Patient.objects.get(id=id)
@@ -233,6 +237,7 @@ def delete_infirmier(request, id):
         infirmier.delete()
         return redirect('list_infirmiers')
     return render(request, 'confirm-delete.html', {'infirmier': infirmier})
+
 
 def delete_anesthesiste(request, id):
     anesthesiste = Anesthesiste.objects.get(id=id)
@@ -254,6 +259,5 @@ def delete_chirurgien(request, id):
 def detail_patient(request, id):
     patient = Patient.objects.get(id=id)
     return render(request, 'infos-perso/detailPatient.html', {'patient': patient})
-
 
 

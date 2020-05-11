@@ -29,4 +29,6 @@ urlpatterns = [
     path('deleteAnesthesiste/<int:id>/', views.delete_anesthesiste, name='delete_anesthesiste'),
     path('list_anesthesiste', views.list_anesthesiste, name='list_anesthesiste'),
 
+    path('create_consultation',views.create_consultation,name='create_consultation'),
+
 ]

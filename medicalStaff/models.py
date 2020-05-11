@@ -79,3 +79,17 @@ class Patient(models.Model):
 
     def __str__(self):
         return self.nom
+
+
+class Profile(models.Model):
+    name = models.CharField('profile name', max_length=10)
+
+    def __unicode__(self):
+        return self.name
+
+class Plan(models.Model):
+    name = models.CharField('plan name', max_length=10)
+    profile = models.ForeignKey(Profile, related_name='profiles', on_delete=models.CASCADE)
+
+    def __unicode__(self):
+        return self.name

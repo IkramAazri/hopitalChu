@@ -22,7 +22,7 @@ box-shadow: 5px 5px 30px 7px rgba(0,0,0,0), -5px -5px 30px 7px rgba(0,0,0,0.1);
   border-radius: 40px;
 }
 
-.card .card_image img {
+.card .card_image a img {
   width: inherit;
   height: inherit;
   border-radius: 40px;
